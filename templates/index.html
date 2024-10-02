@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Committee, Document Type, and View PDF</title>
+</head>
+<body>
+    <h1>CT General Assembly Committee Document Viewer</h1>
+
+    <!-- Step 1: Select Committee and Document Type -->
+    <form method="POST">
+        <h2>Step 1: Select Committee and Document Type</h2>
+
+        <label for="committee">Committee:</label>
+        <select name="committee" id="committee" required>
+            <option disabled selected>Select a Committee</option>
+            {% for name, code in committees.items() %}
+            <option value="{{ name }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="document_type">Document Type:</label>
+        <select name="document_type" id="document_type" required>
+            <option disabled selected>Select a Document Type</option>
+            {% for name, code in document_types.items() %}
+            <option value="{{ name }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" name="fetch_pdfs">Fetch PDFs</button>
+    </form>
+
+    <!-- Step 2: Select PDF if documents were fetched -->
+    {% if documents %}
+    <h2>Step 2: Select a PDF to View</h2>
+    <form method="POST">
+        {% for title, url in documents %}
+        <input type="radio" name="document" value="{{ title }}" id="{{ title }}" required>
+        <label for="{{ title }}">{{ title }}</label><br>
+        {% endfor %}
+        <button type="submit" name="view_pdf">View PDF</button>
+    </form>
+    {% endif %}
+
+    <!-- Step 3: Display PDF Content if a PDF was selected -->
+    {% if selected_pdf_content %}
+    <h2>Step 3: PDF Content</h2>
+    <textarea rows="20" cols="100">{{ selected_pdf_content }}</textarea>
+    {% endif %}
+</body>
+</html>

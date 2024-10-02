@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select PDF</title>
+</head>
+<body>
+    <h1>PDF List</h1>
+    <form method="post">
+        {% for title, url in documents %}
+        <input type="radio" name="document" value="{{ title }}" id="{{ title }}">
+        <label for="{{ title }}">{{ title }}</label><br>
+        {% endfor %}
+        <button type="submit">View PDF</button>
+    </form>
+</body>
+</html>
